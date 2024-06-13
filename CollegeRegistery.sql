@@ -1,6 +1,3 @@
-create database kpriet2025;
-
-use kpriet2025;
 
 
 create table admi(enrollid int,name varchar(30),
