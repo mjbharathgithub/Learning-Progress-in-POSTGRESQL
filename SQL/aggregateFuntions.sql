@@ -96,3 +96,15 @@ select studentname
 from college
 where studentname like 'J%h'
 
+--difference between UNION and UNION ALL--
+--UNION removes duplicates , UNION ALL does'nt remove duplicates--
+--note: while performing union 1.both the col must have same number and datatype--
+select  city,state from country1
+union 
+select  district,division from country2
+
+
+--find the employees whose salary are higher then their manager using self join--
+select e1.ename as "Employee",e2.ename as "Manager"
+from employees e1,employees e2
+where e1.mgrId=e2.empId and e1.salary>e2.salary;
