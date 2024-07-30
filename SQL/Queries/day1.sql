@@ -132,3 +132,24 @@ with lastFiveRecords as
 select major , max(gpa)
 from student 
 group by major;
+
+--Select the name of the student with max gpq--
+select concat(first_name,' ',last_name) as full_name,gpa
+from student
+where gpa=(select max(gpa) from student);
+
+--clone a table and create another table--
+create table student_clone as select * from student;
+
+--update gpa of mathematics major--
+select * from student order by student_id;
+
+--select the major and their averages--
+select major,avg(gpa) as "major average"
+from student
+group by major;
+
+--top 3 gpa students--
+select * from student
+order by gpa desc
+limit 3;
