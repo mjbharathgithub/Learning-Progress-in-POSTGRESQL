@@ -70,3 +70,65 @@ where first_name not in('Prem','Shivansh');
 select *
 from student
 where first_name like '%a';
+
+--------------------------------------------------------------------- DAY 3 -------------------------------------------------------------------------------------
+-- Write an SQL query to list STUDENT_ID who does not get Scholarship.--
+select *
+from student
+where student_id not in(select student_ref_id from scholarship);
+
+-- Write an SQL query to fetch the first 50% records from a table. --
+select *
+from student
+limit (select count(student_id) from student)/2 offset 0;
+
+-- Write an SQL query to fetch the MAJOR subject that have more than 1 people in it. --
+select major
+from student
+group by (major) having count(major)>1;
+
+--Write an SQL query to show all MAJOR subject along with the number of people in there.--
+select major,count(major) as "students Count"
+from student
+group by (major);
+
+-- Write an SQL query to show the last record from a table. (no numbers or id)--
+with lastStudent as(
+	select *,
+	row_number() over (order by (select null)) as row_num
+	from student
+)
+select * from lastStudent 
+order by row_num desc
+limit 1;
+
+-- Select first row from table--
+select * from student limit  1;
+
+--select last five records with student_id--
+select * from
+	(
+		select * from student
+		order by student_id desc
+		limit 5
+	) as "Last Five"
+	order by student_id;
+
+--select last five records without student_id--
+with lastFiveRecords as
+ (
+	 select *,
+	 row_number() over (order by(select null)) row_num
+	 from student
+ )
+ 
+ select * from
+ 	(select * from lastFiveRecords
+ 	order by row_num desc
+	 limit 5) as "Last five Records"
+ order by row_num;	 
+
+--Write an SQL query to fetch MAJOR subjects along with the max GPA in each of these MAJOR subjects.--
+select major , max(gpa)
+from student 
+group by major;
