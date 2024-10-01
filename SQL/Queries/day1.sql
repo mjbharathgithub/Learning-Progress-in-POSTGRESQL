@@ -153,3 +153,10 @@ group by major;
 select * from student
 order by gpa desc
 limit 3;
+
+--cognizant multiple  table join question--
+select u.user_id,a.user_address,p.status
+from users u
+inner join address a on u.user_add=a.add_id
+inner join payment p on p.payment_id=u.user_stat
+where p.status='true';
