@@ -160,3 +160,10 @@ from users u
 inner join address a on u.user_add=a.add_id
 inner join payment p on p.payment_id=u.user_stat
 where p.status='true';
+
+ -- Joins – Inner, Left, Right, Full
+ -- Aggregates – COUNT, AVG, SUM, GROUP BY, HAVING
+ -- Subqueries – Correlated & Non-Correlated
+ -- Window Functions – ROW_NUMBER(), RANK(), DENSE_RANK()
+ -- Data Manipulation – INSERT, UPDATE, DELETE
+ -- Performance Tips – Indexing, EXPLAIN
