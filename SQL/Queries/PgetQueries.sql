@@ -81,3 +81,12 @@ as $$
 $$ language plpgsql;
 
 
+--Subqueries --
+
+SELECT product_name, price
+FROM products
+WHERE price > (SELECT AVG(price) FROM products);
+
+SELECT customer_name
+FROM customers
+WHERE customer_id NOT IN (SELECT DISTINCT customer_id FROM orders);
