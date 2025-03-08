@@ -90,3 +90,17 @@ WHERE price > (SELECT AVG(price) FROM products);
 SELECT customer_name
 FROM customers
 WHERE customer_id NOT IN (SELECT DISTINCT customer_id FROM orders);
+
+SELECT department_id, employee_name, salary
+FROM employees
+WHERE (department_id, salary) IN (SELECT department_id, MAX(salary) 
+                                  FROM employees 
+                                  GROUP BY department_id);
+
+SELECT p.product_name, s.quantity
+FROM products p
+JOIN sales s ON p.product_id = s.product_id
+WHERE s.quantity > (SELECT AVG(s2.quantity)
+                    FROM sales s2
+                    JOIN products p2 ON s2.product_id = p2.product_id
+                    WHERE p2.category_id = p.category_id);
