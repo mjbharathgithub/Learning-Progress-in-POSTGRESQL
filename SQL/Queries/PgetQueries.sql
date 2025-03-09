@@ -104,3 +104,30 @@ WHERE s.quantity > (SELECT AVG(s2.quantity)
                     FROM sales s2
                     JOIN products p2 ON s2.product_id = p2.product_id
                     WHERE p2.category_id = p.category_id);
+
+
+
+
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(255),
+    salary DECIMAL(10, 2)
+);
+
+CREATE TABLE employee_salary_audit (
+    audit_id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT,
+    old_salary DECIMAL(10, 2),
+    new_salary DECIMAL(10, 2),
+    change_date TIMESTAMP
+);
+
+CREATE TRIGGER audit_salary_changes
+BEFORE UPDATE ON employees
+FOR EACH ROW
+BEGIN
+    IF OLD.salary != NEW.salary THEN
+        INSERT INTO employee_salary_audit (employee_id, old_salary, new_salary, change_date)
+        VALUES (OLD.employee_id, OLD.salary, NEW.salary, NOW());
+    END IF;
+END;
