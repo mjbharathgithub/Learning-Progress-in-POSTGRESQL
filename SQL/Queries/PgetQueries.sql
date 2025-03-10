@@ -131,3 +131,30 @@ BEGIN
         VALUES (OLD.employee_id, OLD.salary, NEW.salary, NOW());
     END IF;
 END;
+
+--Stored Procedures--
+DELIMITER //
+CREATE PROCEDURE GetEmployeeInfo(IN emp_id INT)
+BEGIN
+    SELECT employee_name, salary
+    FROM employees
+    WHERE employee_id = emp_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE CalculateOrderTotal(IN order_id INT, OUT total_amount DECIMAL(10, 2))
+BEGIN
+    SELECT SUM(quantity * price) INTO total_amount
+    FROM order_items
+    WHERE order_id = order_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AddNewCustomer(IN cust_name VARCHAR(255), IN cust_email VARCHAR(255))
+BEGIN
+    INSERT INTO customers (customer_name, email)
+    VALUES (cust_name, cust_email);
+END //
+DELIMITER ;
